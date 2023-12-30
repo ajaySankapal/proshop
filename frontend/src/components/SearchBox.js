@@ -17,7 +17,7 @@ const SearchBox = ({ history }) => {
     <Row>
       <Col>
         <Form onSubmit={submitHandler}>
-          <Form.Group>
+          <Form.Group style={{ display: 'flex' }}>
             <Form.Control
               type='text'
               name='q'

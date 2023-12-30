@@ -38,7 +38,7 @@ const LoginScreen = ({ location }) => {
       <h1>Sign In</h1>
       {error && <Message variant='danger'>{error}</Message>}
       {loading && <Loader />}
-      <Form onSubmit={submitHandler}>
+      <Form onSubmit={submitHandler} className='d-flex gap-3 flex-column'>
         <Form.Group controlId='email'>
           <Form.Label>Email Address</Form.Label>
           <Form.Control
@@ -58,10 +58,12 @@ const LoginScreen = ({ location }) => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
+        <div>
+          <Button type='submit' variant='primary'>
+            Sign In
+          </Button>
+        </div>
 
-        <Button type='submit' variant='primary'>
-          Sign In
-        </Button>
       </Form>
 
       <Row className='py-3'>

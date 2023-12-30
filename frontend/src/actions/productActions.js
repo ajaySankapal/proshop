@@ -22,27 +22,28 @@ import {
   PRODUCT_TOP_REQUEST,
   PRODUCT_TOP_SUCCESS,
   PRODUCT_TOP_FAIL,
+  PRODUCT_UPDATE_RESET,
 } from '../constants/productConstants'
 
 export const listProducts =
   (keyword = '', pageNumber = '') =>
-  async (dispatch) => {
-    try {
-      dispatch({ type: PRODUCT_LIST_REQUEST })
-      const { data } = await axios.get(
-        `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
-      )
-      dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data })
-    } catch (error) {
-      dispatch({
-        type: PRODUCT_LIST_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
-      })
+    async (dispatch) => {
+      try {
+        dispatch({ type: PRODUCT_LIST_REQUEST })
+        const { data } = await axios.get(
+          `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
+        )
+        dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data })
+      } catch (error) {
+        dispatch({
+          type: PRODUCT_LIST_FAIL,
+          payload:
+            error.response && error.response.data.message
+              ? error.response.data.message
+              : error.message,
+        })
+      }
     }
-  }
 
 export const listProductDetails = (id) => async (dispatch) => {
   try {
@@ -93,6 +94,8 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
   }
 }
 
+
+
 export const createProduct = () => async (dispatch, getState) => {
   try {
     dispatch({
@@ -110,7 +113,7 @@ export const createProduct = () => async (dispatch, getState) => {
     }
 
     const { data } = await axios.post(`/api/products/`, {}, config)
-
+    debugger
     dispatch({
       type: PRODUCT_CREATE_SUCCESS,
       payload: data,
@@ -153,6 +156,9 @@ export const updateProduct = (product) => async (dispatch, getState) => {
     dispatch({
       type: PRODUCT_UPDATE_SUCCESS,
       payload: data,
+    })
+    dispatch({
+      type: PRODUCT_CREATE_RESET
     })
   } catch (error) {
     const message =

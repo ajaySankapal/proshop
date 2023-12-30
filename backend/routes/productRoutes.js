@@ -23,4 +23,3 @@ router
 router.route('/:id/reviews').post(protect, createProductReview)
 
 export default router
-//to use this router in server we have to tell the app that we are using it

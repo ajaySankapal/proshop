@@ -8,7 +8,7 @@ import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
 import { listProductDetails, updateProduct } from '../actions/productActions'
 import { Link } from 'react-router-dom'
-import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
+import { PRODUCT_DETAILS_RESET, PRODUCT_UPDATE_RESET } from '../constants/productConstants'
 
 const ProductEditScreen = ({ location }) => {
   const history = useNavigate()
@@ -37,13 +37,14 @@ const ProductEditScreen = ({ location }) => {
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: PRODUCT_UPDATE_RESET })
+      dispatch({ type: PRODUCT_DETAILS_RESET })
       history('/admin/productlist')
     } else {
       if (!product.name || product._id !== productId) {
         dispatch(listProductDetails(productId))
       } else {
         setName(product.name)
-        setPrice(product.email)
+        setPrice(product.price)
         setBrand(product.brand)
         setImage(product.image)
         setCategory(product.category)
@@ -107,12 +108,12 @@ const ProductEditScreen = ({ location }) => {
         ) : error ? (
           <Message variant='danger'>{error}</Message>
         ) : (
-          <Form onSubmit={submitHandler}>
+          <Form onSubmit={submitHandler} className='d-flex gap-3 flex-column'>
             <Form.Group controlId='name'>
-              <Form.Label>Email Address</Form.Label>
+              <Form.Label>Product Name</Form.Label>
               <Form.Control
                 type='name'
-                placeholder='Enter Name'
+                placeholder='Enter Product Name'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               ></Form.Control>
@@ -184,10 +185,12 @@ const ProductEditScreen = ({ location }) => {
                 onChange={(e) => setDescription(e.target.value)}
               ></Form.Control>
             </Form.Group>
+            <div>
+              <Button type='submit' variant='primary' className='w-1/2'>
+                Update
+              </Button>
+            </div>
 
-            <Button type='submit' variant='primary'>
-              Update
-            </Button>
           </Form>
         )}
       </FormContainer>

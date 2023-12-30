@@ -46,7 +46,7 @@ const ProductListScreen = () => {
       history('/login')
     }
     if (successCreate) {
-      history(`/admin/product/${createdProduct._id}/edit`)
+      history(`/admin/product/${createdProduct?._id}/edit`)
     } else {
       dispatch(listProducts('', pageNumber))
     }
@@ -68,6 +68,7 @@ const ProductListScreen = () => {
 
   const createProductHandler = () => {
     //CREATE PRODUCT
+    debugger
     dispatch(createProduct())
   }
 
@@ -77,7 +78,7 @@ const ProductListScreen = () => {
         <Col>
           <h1>Products</h1>
         </Col>
-        <Col className='text-right'>
+        <Col className='text-right d-flex justify-content-end'>
           <Button className='my-3' onClick={createProductHandler}>
             <i className='fas fa-plus'></i> Create Product
           </Button>

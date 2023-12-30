@@ -48,9 +48,9 @@ const RegisterScreen = ({ location }) => {
       {message && <Message variant='danger'>{message}</Message>}
       {error && <Message variant='danger'>{error}</Message>}
       {loading && <Loader />}
-      <Form onSubmit={submitHandler}>
+      <Form onSubmit={submitHandler} className='d-flex gap-3 flex-column'>
         <Form.Group controlId='name'>
-          <Form.Label>Email Address</Form.Label>
+          <Form.Label>Enter Name</Form.Label>
           <Form.Control
             type='name'
             placeholder='Enter Name'
@@ -86,10 +86,12 @@ const RegisterScreen = ({ location }) => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
+        <div>
+          <Button type='submit' variant='primary'>
+            Register
+          </Button>
+        </div>
 
-        <Button type='submit' variant='primary'>
-          Register
-        </Button>
       </Form>
 
       <Row className='py-3'>
